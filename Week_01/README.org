@@ -30,8 +30,8 @@
 | Xms          | jvm 初始堆大小 |      |
 | Xmn          | 年轻代大小     |      |
 | Xss          | 线程堆栈       |      |
-| Meta-space   | 代替永久代     |      |
-| DirectMemory | 堆外内存       |      |
+| Meta-space   | 元数据空间      |      |
+| DirectMemory | 直接内存       |      |
 ***** 额外资料补充
       - [[https://www.cnblogs.com/duanxz/p/6115722.html][jvm tools]]
       - [[https://www.cnblogs.com/duanxz/p/3482366.html][jvm paramter]]
@@ -42,9 +42,9 @@
       - 启动远程服务器的jstatd服务即可，查看远程服务器相关情况，jstatd启动方式如下：
         - 将如下的文件，添加到一个 jstatd.policy 文件中，
           #+begin_src
-         grant codebase "file:${java.home}/../lib/tools.jar" {
+ grant codebase "file:${java.home}/../lib/tools.jar" {
      permission java.security.AllPermission;
-  };
+ };
           #+end_src
       - 启动命令如下
         jstatd -J-Djava.security.policy=./jstatd.policy  -J-Djava.rmi.server.hostname=192.168.1.110
