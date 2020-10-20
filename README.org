@@ -1,6 +1,6 @@
 * geekbang java 学习笔记
 
-** [[week-01][https://github.com/HxnFight/JAVA-000/tree/main/Week_01]]
+** [[https://github.com/HxnFight/JAVA-000/tree/main/Week_01][week-01]]
 
 #学号: G20200579010512
 #姓名: 瓦让
