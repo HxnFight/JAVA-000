@@ -10,11 +10,17 @@
 #+setupfile: http://css.valjean.cn/css/org-theme/setup/nginx/readtheorg-ng.setup
 
 * week-01
-** 学习笔记
+** 感受
+   课程中学习的这些基本知识，正是自己的薄弱点，平时关注和使用的较少
+   在课堂的学习，给了自己很大的感受，一点点的学习、去积累
+   希望在以后的工具中慢慢的实践提升
 ** 作业
 *** 选做
 **** 自己写一个简单的 Hello.java，里面需要涉及基本类型，四则运行，if 和 for，然后自己分析一下对应的字节码，有问题群里讨论。
 **** 检查一下自己维护的业务系统的 JVM 参数配置，用 jstat 和 jstack、jmap 查看一下详情，并且自己独立分析一下大概情况，思考有没有不合理的地方，如何改进。
+     - 传统的tomcat直接启动
+     - java -jar xxx.jar 启动  
+     - docker 启动
 **** 本机使用 G1 GC 启动一个程序，仿照课上案例分析一下 JVM 情况
 *** 必做
 **** 自定义一个 Classloader，加载一个 Hello.xlass 文件，执行 hello 方法，此文件内容是一个 Hello.class 文件所有字节（x=255-x）处理后的文件。文件群里提供。
@@ -33,3 +39,43 @@
       - [[https://www.cnblogs.com/duanxz/p/6115722.html][jvm tools]]
       - [[https://www.cnblogs.com/duanxz/p/3482366.html][jvm paramter]]
       - [[https://www.cnblogs.com/duanxz/p/3520829.html][jvm metaspace]]
+*** jvm tools 
+**** jps
+      - 在linux环境下，可以用man jps查看各个选项的具体含义
+      - 启动远程服务器的jstatd服务即可，查看远程服务器相关情况，jstatd启动方式如下：
+        - 将如下的文件，添加到一个 jstatd.policy 文件中，
+          #+begin_src
+         grant codebase "file:${java.home}/../lib/tools.jar" {
+     permission java.security.AllPermission;
+  };
+          #+end_src
+      - 启动命令如下
+        jstatd -J-Djava.security.policy=./jstatd.policy  -J-Djava.rmi.server.hostname=192.168.1.110
+      - 在有权限的情况，可以使用 jps -l 192.168.1.110 查看远程服务器相关情况,(默认端口为1099)
+      - [[https://www.cnblogs.com/EasonJim/p/7483739.html][jstatd 其他教程]]
+      
+**** jstack 堆栈追踪工具
+     - jps -l 获取java 的本地pid
+     - top -Hp xxx : 获取本进程下所有的线程情况
+     - printf "%x\n" 选取资源消耗较高的线程id， 转成16进制. 
+     - jstack中的nid即为要找的线程id. nid 为系统id
+     - [[https://www.cnblogs.com/duanxz/p/5487576.html][tutor-1]]
+**** jstat 监控jvm的使用情况
+     - [[https://www.cnblogs.com/duanxz/archive/2012/11/03/2752166.html][tutor-1]]
+     - [[https://www.cnblogs.com/duanxz/archive/2012/11/29/2794764.html][tutor-2]]
+**** jmap 查看pid下，内存中所有对象的情况
+     - jmap -dump:live,format=b,file=test.bin 3585
+     - jvisualvm
+     - jmap dump完的文件，拉取到本地，利用jvisualvm 可以查看其相关的信息
+     - 其中，还有一个oql 可以查询相关对象信息
+**** jinfo 打印相关配置信息
+**** jvisualvm jconsole  可视化工具
+**** jhat 分析堆信息，并以网页版显示
+**** jdb 进行实时调试的
+**** jstatd
+     - [[https://www.cnblogs.com/duanxz/p/5497811.html][tutor-1]]
+**** jcmd
+     - [[https://www.cnblogs.com/duanxz/p/6115722.html][tutor-1]]
+**** nmt pmap
+** 待确定的
+*** docker 环境下jvm参数配置
