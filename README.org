@@ -1,6 +1,6 @@
 * geekbang java 学习笔记
 
-** [[Week_01/README.org][week-01]]
+** [[Week_01/README.org][week-01]] jvm 相关基础知识
 
 #学号: G20200579010512
 #姓名: 瓦让
