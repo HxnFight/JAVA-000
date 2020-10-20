@@ -1,9 +1,10 @@
 * geekbang java 学习笔记
 
-** [[week-01][./Week_01/README.org]]
+** [[week-01][https://github.com/HxnFight/JAVA-000/tree/main/Week_01]]
 
 #学号: G20200579010512
 #姓名: 瓦让
 #班级: 4班
 #作业链接:
 
+                                                                                k
