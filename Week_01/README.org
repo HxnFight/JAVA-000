@@ -1,0 +1,35 @@
+#+TITLE: 学习笔记
+#+EMAIL: valjean@foxmail.com
+#+OPTIONS: toc:2
+#+OPTIONS: toc:t
+#+STARTUP: overview
+#+COLUMNS: %25ITEM %TAGS %TODO %3PRIORITYd
+#+OPTIONS: ^:nil
+#+OPTIONS: email:t
+#+HTML_MATHJAX: align: left indent: 5em tagside: left font: Neo-Euler
+#+setupfile: http://css.valjean.cn/css/org-theme/setup/nginx/readtheorg-ng.setup
+
+* week-01
+** 学习笔记
+** 作业
+*** 选做
+**** 自己写一个简单的 Hello.java，里面需要涉及基本类型，四则运行，if 和 for，然后自己分析一下对应的字节码，有问题群里讨论。
+**** 检查一下自己维护的业务系统的 JVM 参数配置，用 jstat 和 jstack、jmap 查看一下详情，并且自己独立分析一下大概情况，思考有没有不合理的地方，如何改进。
+**** 本机使用 G1 GC 启动一个程序，仿照课上案例分析一下 JVM 情况
+*** 必做
+**** 自定义一个 Classloader，加载一个 Hello.xlass 文件，执行 hello 方法，此文件内容是一个 Hello.class 文件所有字节（x=255-x）处理后的文件。文件群里提供。
+     - 见程序
+**** 画一张图，展示 Xmx、Xms、Xmn、Meta、DirectMemory、Xss 这些内存参数的关系。
+
+| 字段         | 解释           | 备注 |
+|--------------+----------------+------|
+| Xmx          | jvm 最大堆大小 |      |
+| Xms          | jvm 初始堆大小 |      |
+| Xmn          | 年轻代大小     |      |
+| Xss          | 线程堆栈       |      |
+| Meta-space   | 代替永久代     |      |
+| DirectMemory | 堆外内存       |      |
+***** 额外资料补充
+      - [[https://www.cnblogs.com/duanxz/p/6115722.html][jvm tools]]
+      - [[https://www.cnblogs.com/duanxz/p/3482366.html][jvm paramter]]
+      - [[https://www.cnblogs.com/duanxz/p/3520829.html][jvm metaspace]]

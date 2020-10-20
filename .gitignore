@@ -1,0 +1,48 @@
+!.gitignore
+# IntelliJ IDEA ignore configuration
+/**/target/*
+*.iws
+/src/**/test/*
+*.class
+*.iml
+log/
+.idea/
+out/
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+#*.jar
+*.war
+*.ear
+
+# sql 文件 
+#*.sql
+# virtual machine crash logs
+hs_err_pid*
+
+#gitignore文件在eclipse项目中的配置
+# built application files
+*.apk
+*.ap_
+# files for the dex VM
+*.dex
+# Java class files
+*.class
+# generated files
+bin/
+gen/
+# Local configuration file (sdk path, etc)
+local.properties
+# Eclipse project files
+.classpath
+.project
+.DS_Store
+.#*
+
+/**/node_modules/*
+
+.*.swp
+.*.swo
+
