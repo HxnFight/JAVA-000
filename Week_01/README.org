@@ -1,5 +1,4 @@
 #+TITLE: 学习笔记
-#+EMAIL: valjean@foxmail.com
 #+OPTIONS: toc:2
 #+OPTIONS: toc:t
 #+STARTUP: overview
@@ -7,8 +6,6 @@
 #+OPTIONS: ^:nil
 #+OPTIONS: email:t
 #+HTML_MATHJAX: align: left indent: 5em tagside: left font: Neo-Euler
-#+setupfile: http://css.valjean.cn/css/org-theme/setup/nginx/readtheorg-ng.setup
-
 * week-01
 ** 感受
    课程中学习的这些基本知识，正是自己的薄弱点，平时关注和使用的较少
