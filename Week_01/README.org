@@ -15,45 +15,6 @@
 *** 选做
 **** 自己写一个简单的 Hello.java，里面需要涉及基本类型，四则运行，if 和 for，然后自己分析一下对应的字节码，有问题群里讨论。
 
-#+begin_src
-Warning: Binary file Hello contains valjean.Hello
-Compiled from "Hello.java"
-public class valjean.Hello {
-  public valjean.Hello();
-    Code:
-       0: aload_0
-       1: invokespecial #1                  // Method java/lang/Object."<init>":()V
-       4: return
-
-  public static void main(java.lang.String[]);
-    Code:
-       0: iconst_0      // int 常量值0 进栈
-       1: istore_1      // 将栈顶int型数值，存入第二个局部变量
-       2: iconst_0       // int 常量值0 进栈
-       3: istore_2      // 将栈顶int型数值，存入第三个局部变量
-       4: iload_2       // 第三个int型局部变量进栈
-       5: bipush        10 //将一个byte型常量值推送至栈顶
-       7: if_icmpge     20
-      10: iload_1
-      11: iload_2
-      12: iadd
-      13: istore_1
-      14: iinc          2, 1
-      17: goto          4
-      20: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
-      23: new           #3                  // class java/lang/StringBuilder
-      26: dup
-      27: invokespecial #4                  // Method java/lang/StringBuilder."<init>":()V
-      30: ldc           #5                  // String sum =
-      32: invokevirtual #6                  // Method java/lang/StringBuilder.append:(Ljava/lang/String;)Ljava/lang/StringBuilder;
-      35: iload_1
-      36: invokevirtual #7                  // Method java/lang/StringBuilder.append:(I)Ljava/lang/StringBuilder;
-      39: invokevirtual #8                  // Method java/lang/StringBuilder.toString:()Ljava/lang/String;
-      42: invokevirtual #9                  // Method java/io/PrintStream.println:(Ljava/lang/String;)V
-      45: return
-}
-
-#+end_src
 
 **** 检查一下自己维护的业务系统的 JVM 参数配置，用 jstat 和 jstack、jmap 查看一下详情，并且自己独立分析一下大概情况，思考有没有不合理的地方，如何改进。
      - 传统的tomcat直接启动
@@ -116,5 +77,3 @@ public class valjean.Hello {
 **** jcmd
      - [[https://www.cnblogs.com/duanxz/p/6115722.html][tutor-1]]
 **** nmt pmap
-** 待确定的
-*** docker 环境下jvm参数配置
