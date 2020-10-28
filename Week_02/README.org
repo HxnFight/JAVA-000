@@ -7,7 +7,6 @@
 #+OPTIONS: email:t
 #+HTML_MATHJAX: align: left indent: 5em tagside: left font: Neo-Euler
 
-
 * 本周作业
 
  #+begin_src
@@ -35,43 +34,64 @@ Github 使用教程： https://u.geekbang.org/lesson/51?article=294701
 学号查询方式：PC 端登录 time.geekbang.org, 点击右上角头像进入我的教室，左侧头像下方 G 开头的为学号
  #+end_src
 
+***  利用gcviewer对各个gc log分析如下
+ - UseSerialGC
+   最基础最早的收集器，单线程工作的收集器。 在进行垃圾回收的时候，必须暂停其他所有工作线程. (Stop The World)
+   目前在服务端几乎没有什么用户之地，但它依然是HotSpot虚拟机运行在客户端模式下的默认新生 代收集器，有着优于其他收集器的地方.
+   ParNew收集器实质上是Serial收集器的多线程并行版本,ParNew收集器除了支持多线程并行收集之外，
+   其他与Serial收集器相比并没有太多创新之处，但它却是不少运行在服务端模式下的HotSpot虚拟机，
+   尤其是JDK 7之前的遗留系统中首选的新生代收集器，
+   其中有一个与功能、性能无关但其实很重要的原因是:除了Serial收集器外，目前只有它能与CM S 收集器配合工作。
+   
+
+  Serial Old是Serial收集器的老年代版本，它同样是一个单线程收集器，使用标记-整理算法。这个收
+  集器的主要意义也是供客户端模式下的HotSpot虚拟机使用。如果在服务端模式下，它也可能有两种用
+  途:一种是在JDK 5以及之前的版本中与Parallel Scavenge收集器搭配使用，
+  另外一种就是作为CMS收集器发生失败时的后备预案，在并发收集发生Concurrent Mode Failure时使用
+ [[file:png/serialgc-analysic-1.png]]
+
+ - UseParallelGC
+   Parallel Scavenge收集器也是一款新生代收集器，它同样是基于标记-复制算法实现的收集器，也是 能够并行收集的多线程收集器
+   Parallel Scavenge收集器的特点是它的关注点与其他收集器不同，
+   CMS等收集器的关注点是尽可能地缩短垃圾收集时用户线程的停顿时间，
+   而Parallel Scavenge收集器的目标则是达到一个可控制的吞吐量(Throughput)
+   
+  Parallel Old是Parallel Scavenge收集器的老年代版本，支持多线程并发收集，基于标记-整理算法实现。
+  这个收集器是直到JDK 6时才开始提供的，在此之前，新生代的Parallel Scavenge收集器一直处于相当尴尬的状态，
+  原因是如果新生代选择了Parallel Scavenge收集器，老年代除了Serial Old(PS MarkSweep)收集器以外别无选择，
+  其他表现良好的老年代收集器，如CMS无法与它配合工作。由于老年代Serial Old收集器在服务端应用性能上的“拖累”，
+  使用Parallel Scavenge收集器也未必能在整体上获得吞吐量最大化的效果。
+  同样，由于单线程的老年代收集中无法充分利用服务器多处理器的并行处理能力，
+  在老年代内存空间很大而且硬件规格比较高级的运行环境中，这种组合的总吞吐量甚至不一定比ParNew加CMS的组合来得优秀。
+  直到Parallel Old收集器出现后，“吞吐量优先”收集器终于有了比较名副其实的搭配组合，在注重吞吐量或者处理器资源较为稀缺的场合，
+  都可以优先考虑Parallel Scavenge加Parallel Old收集器这个组合
+
+ [[file:png/parallelgc-analysic.png]]
+
+ - UseConcMarkSweepGC
+   CMS(Concurrent Mark Sweep)收集器是一种以获取最短回收停顿时间为目标的收集器。目前很大一部分的Java应用集中在互联网网站或者基于浏览器的B/S系统的服务端上，
+   这类应用通常都会较为 关注服务的响应速度，希望系统停顿时间尽可能短，以给用户带来良好的交互体验
+
+ [[file:png/cms-gc.png]]
+
+ - UseG1GC
+   Garbage First(简称G1)收集器是垃圾收集器技术发展历史上的里程碑式的成果，它开创了收集器面向局部收集的设计思路和基于Region的内存布局形式
+   G1是一款主要面向服务端应用的垃圾收集器,JDK 9发布之日，G1宣告取代Parallel Scavenge加Parallel Old组合，成为服务端模式下的默认垃圾收集器，而CMS则
+   沦落至被声明为不推荐使用(Deprecate)的收集器
+ [[file:png/gc-first.png]]
+
+ - 其余两款GC目前业务中几乎用不到，只是粗略了解
+   - [[https://tech.meituan.com/2020/08/06/new-zgc-practice-in-meituan.html][ZGC]] 
+   - [[https://segmentfault.com/a/1190000021786789][Shenandoah]]
+ - *gc 日志分析的工具用的gcViewer，相关资料参考的 《深入理解java虚拟机》*
+
+
 * gc 分析工具
   - [[https://gceasy.io/][GCEasy]]
   - [[https://github.com/jewes/gchisto][GCHisto]]
   - [[https://github.com/chewiebug/GCViewer][GCViewer]]
   - [[https://code.google.com/archive/p/gclogviewer/][gclogviewer]]  * just supported jdk 1.6*
-
-
-Useserialgc
-UseParallelGC
-如果不配置 Xms 会怎么样?
-
-UseConcMarkSweepGC
-观察 Young GC 与 Full GC
-思考:假如 Xmx/Xms 设置 4g 会怎么样? 4g 内存下跟并行 gc 相比呢?
-
-阶段 1:Initial Mark(初始标记)
-阶段 2:Concurrent Mark(并发标记)
-阶段 3:Concurrent Preclean(并发预清理) 
-阶段 4: Final Remark(最终标记)
-阶段 5: Concurrent Sweep(并发清除) 
-阶段 6: Concurrent Reset(并发重置)
-
-+UseG1GC
-
-
-
-总结:
-如何查看/分析不同 GC 配置下的日志信息? 各种 GC 有什么特点和使用场景?
-
-
-JVM 线程堆栈数据分析 fastthread 线程分析
-
-
-高分配速率
-
-Arthas
-
-
-io模型的总结
-netty基本概念
+  - [[https://juejin.im/post/6844903791909666823][gc log 说明]]
+  - [[https://www.bookstack.cn/read/gc-handbook/spilt.5.06_GC_Tuning_Tooling_CN.md][gcviewer 使用说明]]
+  - [[https://arthas.aliyun.com/doc/][Arthas]]
+  - jdk 1.7 1.8 的jvm内存模型是不一样的，在1.8 下的各个版本的gc，按照1.8的内存模型来处理Metaspace 区

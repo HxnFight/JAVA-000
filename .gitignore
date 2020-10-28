@@ -8,6 +8,7 @@
 log/
 .idea/
 out/
+GCViewer.app
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
