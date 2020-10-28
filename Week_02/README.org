@@ -11,27 +11,15 @@
 
  #+begin_src
 Week02 作业题目（周四）：
-
 1.使用 GCLogAnalysis.java 自己演练一遍串行 / 并行 /CMS/G1 的案例。
-
 2.使用压测工具（wrk 或 sb），演练 gateway-server-0.0.1-SNAPSHOT.jar 示例。
-
 3.（选做） 如果自己本地有可以运行的项目，可以按照 2 的方式进行演练。
 4.（必做） 根据上述自己对于 1 和 2 的演示，写一段对于不同 GC 的总结，提交到 Github。
 
 Week02 作业题目（周六）：
-
 1.（选做）运行课上的例子，以及 Netty 的例子，分析相关现象。
 2.（必做）写一段代码，使用 HttpClient 或 OkHttp 访问 http://localhost:8801 ，代码提交到 Github。
 
-以上作业，要求 2 道必做题目提交到 Github 上面，Week02 作业提交地址：
-https://github.com/JAVA-000/JAVA-000/issues/113
-
-请务必按照示例格式进行提交，不要复制其他同学的格式，以免格式错误无法抓取作业。
-作业提交截止时间 10 月 28 日（下周三）23:59 前。
-
-Github 使用教程： https://u.geekbang.org/lesson/51?article=294701
-学号查询方式：PC 端登录 time.geekbang.org, 点击右上角头像进入我的教室，左侧头像下方 G 开头的为学号
  #+end_src
 
 ***  利用gcviewer对各个gc log分析如下
@@ -85,7 +73,99 @@ Github 使用教程： https://u.geekbang.org/lesson/51?article=294701
    - [[https://segmentfault.com/a/1190000021786789][Shenandoah]]
  - *gc 日志分析的工具用的gcViewer，相关资料参考的 《深入理解java虚拟机》*
 
+*** 作业code如下 
+    使用了自己业务中的一个接口, 实现了httpClient, okHttp . 工作中常用的hutool 合集也加入进来
+#+begin_src 
+package cn.valjean;
 
+import cn.hutool.http.HttpRequest;
+import okhttp3.Call;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import org.apache.http.HttpHeaders;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpUriRequest;
+import org.apache.http.client.methods.RequestBuilder;
+import org.apache.http.impl.client.HttpClients;
+
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
+
+public class GeekBang {
+
+    public static final String url = "http://localhost:2022/geoIp/getCountryByIp?ip=127.0.0.1";
+
+    public static void main(String[] args) throws IOException {
+//        huToolCall();
+//        okSyncGetCall();
+        httpClientCall();
+
+    }
+
+    /**
+     * hutool 工具合集
+     * https://www.hutool.cn/docs/
+     * 工作业务中，用到了， 自定义header
+     */
+    public static void huToolCall() {
+
+        String respMsg = HttpRequest.get(url)
+                .header("internal", "xxxxxxxxxxx")
+                .execute()
+                .body();
+        System.out.println("respMsg = " + respMsg);
+
+    }
+
+    /**
+     * okhttp 同步Get 请求
+     * OkHttpClient#Builder构造客户端对象;
+     * 构造Request对象；
+     * 通过前两步中的对象构建Call对象；
+     * 通过Call#execute(Callback)方法来提交异步请求；
+     */
+    public static void okSyncGetCall() throws IOException {
+
+        OkHttpClient okHttpClient = new OkHttpClient.Builder().readTimeout(5, TimeUnit.SECONDS).build();
+        //默认就是GET请求，可以不写
+        final Request request = new Request.Builder()
+                .header("internal", "xxxxxxxxxxx")
+                .url(url).get().build();
+        Call call = okHttpClient.newCall(request);
+        Response response = call.execute();
+        String respMsg = response.body().string();
+        System.out.println("respMsg = " + respMsg);
+
+    }
+
+    /**
+     * 1.获得一个httpclient对象
+     * 2.生成一个get请求
+     * 3.执行get请求并返回结果
+     */
+    public static void httpClientCall() throws IOException {
+
+        HttpClient client = HttpClients.custom().build();
+        HttpUriRequest request = RequestBuilder.get()
+                .setUri(url)
+                .setHeader("internal", "xxxxxxxxxxx")
+                .setHeader(HttpHeaders.CONTENT_TYPE, "application/json")
+                .build();
+        HttpResponse response = client.execute(request);
+
+        Scanner sc = new Scanner(response.getEntity().getContent());
+
+        System.out.println(response.getStatusLine());
+        while (sc.hasNext()) {
+            System.out.println(sc.nextLine());
+        }
+    }
+}
+#+end_src
+    
 * gc 分析工具
   - [[https://gceasy.io/][GCEasy]]
   - [[https://github.com/jewes/gchisto][GCHisto]]
