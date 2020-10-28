@@ -61,6 +61,8 @@ Week02 作业题目（周六）：
  [[file:png/parallelgc-analysic.png]]
 
  - UseConcMarkSweepGC
+ 
+ 
    CMS(Concurrent Mark Sweep)收集器是一种以获取最短回收停顿时间为目标的收集器。目前很大一部分的Java应用集中在互联网网站或者基于浏览器的B/S系统的服务端上，
    这类应用通常都会较为 关注服务的响应速度，希望系统停顿时间尽可能短，以给用户带来良好的交互体验
 
