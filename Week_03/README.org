@@ -25,4 +25,32 @@ https://github.com/JAVA-000/JAVA-000/issues/125
 作业提交截止时间 11 月 4 日（下周三）23:59 前。
 Github 使用教程： https://u.geekbang.org/lesson/51?article=294701
  #+end_src
+
 * 作业实现
+** (必做）整合你上次作业的 httpclient/okhttp [[file:Week_03/nio02/src/main/java/cn/valjean/gateway/outbound/okhttp/OkhttpOutboundHandler.java][代码实现]]
+** (必做）实现过滤器
+
+* issue
+** okhttp
+** Could not initialize class okhttp3.internal.concurrent.TaskRunner
+   - 增加okio 依赖
+     #+begin_src 
+<!-- https://mvnrepository.com/artifact/com.squareup.okio/okio -->
+<dependency>
+    <groupId>com.squareup.okio</groupId>
+    <artifactId>okio</artifactId>
+    <version>2.9.0</version>
+</dependency>
+     #+end_src
+     
+** kotlin.collections.ArraysKt.copyInto([B[BIII)[B
+   - 是kotlin版本的问题,指定特定的版本即可
+   - 增加依赖
+     #+begin_src
+<!-- https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib -->
+<dependency>
+    <groupId>org.jetbrains.kotlin</groupId>
+    <artifactId>kotlin-stdlib</artifactId>
+    <version>1.4.10</version>
+</dependency>
+     #+end_src

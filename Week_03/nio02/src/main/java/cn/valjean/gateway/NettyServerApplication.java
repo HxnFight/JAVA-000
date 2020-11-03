@@ -14,7 +14,7 @@ public class NettyServerApplication {
     public static final List<String> serverList = Arrays.asList("1", "2", "3");
 
     public static void main(String[] args) {
-        String proxyServer = System.getProperty("proxyServer", "http://localhost:8088");
+        String proxyServer = System.getProperty("proxyServer", "http://localhost:8080");
         String proxyPort = System.getProperty("proxyPort", "8888");
 
         //  http://localhost:8888/api/hello  ==> gateway API
