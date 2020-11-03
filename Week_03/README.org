@@ -1,1 +1,28 @@
-学习笔记
+#+TITLE: 学习笔记
+#+OPTIONS: toc:2
+#+OPTIONS: toc:t
+#+STARTUP: overview
+#+COLUMNS: %25ITEM %TAGS %TODO %3PRIORITYd
+#+OPTIONS: ^:nil
+#+OPTIONS: email:t
+#+HTML_MATHJAX: align: left indent: 5em tagside: left font: Neo-Euler
+
+* 作业题目
+ #+begin_src
+Week03 作业题目（周四）：
+基础代码可以 fork： https://github.com/kimmking/JavaCourseCodes
+02nio/nio02 文件夹下
+实现以后，代码提交到 Github。
+1.（必做）整合你上次作业的 httpclient/okhttp；
+2.（选做）使用 netty 实现后端 http 访问（代替上一步骤）
+Week03 作业题目（周六）：
+1.（必做）实现过滤器。
+2.（选做）实现路由。
+
+作业提交规范：
+以上作业，要求 2 道必做题目提交到 Github 上面，Week03 作业提交地址：
+https://github.com/JAVA-000/JAVA-000/issues/125
+作业提交截止时间 11 月 4 日（下周三）23:59 前。
+Github 使用教程： https://u.geekbang.org/lesson/51?article=294701
+ #+end_src
+* 作业实现
