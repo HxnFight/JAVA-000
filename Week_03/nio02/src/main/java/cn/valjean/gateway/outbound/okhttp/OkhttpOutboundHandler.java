@@ -10,8 +10,6 @@ import io.netty.handler.codec.http.FullHttpResponse;
 import io.netty.handler.codec.http.HttpUtil;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
-import org.apache.http.HttpResponse;
-import org.apache.http.util.EntityUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -23,6 +21,7 @@ import static io.netty.handler.codec.http.HttpVersion.HTTP_1_1;
 
 @Slf4j
 public class OkhttpOutboundHandler {
+
     private ExecutorService proxyService;
     private String backendUrl;
     private OkHttpClient okHttpClient;
@@ -34,6 +33,8 @@ public class OkhttpOutboundHandler {
         int cores = Runtime.getRuntime().availableProcessors() * 2;
         long keepAliveTime = 1000;
         int queueSize = 2048;
+
+        //复用线程池
         RejectedExecutionHandler handler = new ThreadPoolExecutor.CallerRunsPolicy();
         proxyService = new ThreadPoolExecutor(cores, cores,
                 keepAliveTime, TimeUnit.MILLISECONDS, new ArrayBlockingQueue<>(queueSize),
@@ -51,9 +52,14 @@ public class OkhttpOutboundHandler {
 
     private void fetchGet(final FullHttpRequest inbound, final ChannelHandlerContext ctx, final String url) {
 
-        final Request request = new Request.Builder().url(url).get().build();
+        String headerValue = inbound.headers().get("nio");
+        final Request request = new Request.Builder()
+                .header("nio", headerValue)
+                .url(url).get().build();
+
         Call call = okHttpClient.newCall(request);
 
+        // 利用异步调用
         call.enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
@@ -68,55 +74,25 @@ public class OkhttpOutboundHandler {
                     log.error("#respone-error: {}", response.message());
                     return;
                 }
-
                 try {
                     handleResponse(inbound, ctx, response);
                 } catch (Exception e) {
                     e.printStackTrace();
                 } finally {
-
+                    call.cancel();
                 }
-
-
             }
         });
-
     }
 
 
-    private void handleResponse(final FullHttpRequest fullRequest, final ChannelHandlerContext ctx, final HttpResponse endpointResponse) throws Exception {
-        FullHttpResponse response = null;
-        try {
-            byte[] body = EntityUtils.toByteArray(endpointResponse.getEntity());
+    private void handleResponse(final FullHttpRequest fullRequest,
+                                final ChannelHandlerContext ctx,
+                                final Response endpointResponse) {
 
-            response = new DefaultFullHttpResponse(HTTP_1_1, OK, Unpooled.wrappedBuffer(body));
-            response.headers().set("Content-Type", "application/json");
-            response.headers().setInt("Content-Length", Integer.parseInt(endpointResponse.getFirstHeader("Content-Length").getValue()));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            response = new DefaultFullHttpResponse(HTTP_1_1, NO_CONTENT);
-            exceptionCaught(ctx, e);
-        } finally {
-            if (fullRequest != null) {
-                if (!HttpUtil.isKeepAlive(fullRequest)) {
-                    ctx.write(response).addListener(ChannelFutureListener.CLOSE);
-                } else {
-                    ctx.write(response);
-                }
-            }
-            ctx.flush();
-        }
-
-    }
-
-
-    private void handleResponse(final FullHttpRequest fullRequest, final ChannelHandlerContext ctx,
-                                final Response endpointResponse) throws Exception {
         FullHttpResponse response = null;
         try {
             ResponseBody body = endpointResponse.body();
-
             response = new DefaultFullHttpResponse(HTTP_1_1, OK, Unpooled.wrappedBuffer(body.bytes()));
             response.headers().set("Content-Type", "application/json");
             response.headers().setInt("Content-Length", Math.toIntExact(body.contentLength()));
@@ -137,7 +113,6 @@ public class OkhttpOutboundHandler {
         }
 
     }
-
 
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
         cause.printStackTrace();

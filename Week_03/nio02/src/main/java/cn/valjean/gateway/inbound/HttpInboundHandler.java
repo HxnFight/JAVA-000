@@ -1,5 +1,7 @@
 package cn.valjean.gateway.inbound;
 
+import cn.valjean.gateway.filter.HttpRequestFilter;
+import cn.valjean.gateway.filter.HttpRequestFilterImpl;
 import cn.valjean.gateway.outbound.httpclient4.HttpOutboundHandler;
 import cn.valjean.gateway.outbound.okhttp.OkhttpOutboundHandler;
 import io.netty.channel.ChannelHandlerContext;
@@ -17,12 +19,14 @@ public class HttpInboundHandler extends ChannelInboundHandlerAdapter {
     private final String proxyServer;
     //    private HttpOutboundHandler handler;
     private OkhttpOutboundHandler handler;
+    private HttpRequestFilter requestFilter;
 
     public HttpInboundHandler(String proxyServer) {
         this.proxyServer = proxyServer;
-//        handler = new HttpOutboundHandler(this.proxyServer);
         try {
+//        handler = new HttpOutboundHandler(this.proxyServer);
             handler = new OkhttpOutboundHandler(this.proxyServer);
+            requestFilter = new HttpRequestFilterImpl();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -45,9 +49,11 @@ public class HttpInboundHandler extends ChannelInboundHandlerAdapter {
 //                handlerTest(fullRequest, ctx);
 //            }
 
+            // 挂载过滤器
+            requestFilter.filter(fullRequest, ctx);
             handler.handle(fullRequest, ctx);
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             ReferenceCountUtil.release(msg);
