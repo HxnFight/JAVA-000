@@ -9,6 +9,5 @@ public class HttpRequestFilterImpl implements HttpRequestFilter {
     public void filter(FullHttpRequest fullRequest, ChannelHandlerContext ctx) {
         HttpHeaders headers = fullRequest.headers();
         headers.set("nio", "valjean");
-
     }
 }

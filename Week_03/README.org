@@ -28,8 +28,11 @@ Github 使用教程： https://u.geekbang.org/lesson/51?article=294701
 
 * 作业实现
 ** (必做）整合你上次作业的 httpclient/okhttp [[file:Week_03/nio02/src/main/java/cn/valjean/gateway/outbound/okhttp/OkhttpOutboundHandler.java][代码实现]]
-** (必做）实现过滤器
-
+   - 模仿 HttpOutboundHandler 的实现， 采用OkHttp的异步调用实现
+** (必做）实现过滤器 [[file:Week_03/nio02/src/main/java/cn/valjean/gateway/filter/HttpRequestFilterImpl.java][代码实现]] 
+   - HttpRequestFilterImpl 简单实现  HttpRequestFilter， 添加一个header
+   - 在调用 OkhttpOutboundHandler 实现之前，先调用filter添加header
+   - 在调用 OkhttpOutboundHandler 实现 fetchGet 方法时，将添加的header 取出，放入到对后端的请求中
 * issue
 ** okhttp
 ** Could not initialize class okhttp3.internal.concurrent.TaskRunner
