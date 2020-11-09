@@ -22,8 +22,6 @@ Week03 作业题目（周六）：
 作业提交规范：
 以上作业，要求 2 道必做题目提交到 Github 上面，Week03 作业提交地址：
 https://github.com/JAVA-000/JAVA-000/issues/125
-作业提交截止时间 11 月 4 日（下周三）23:59 前。
-Github 使用教程： https://u.geekbang.org/lesson/51?article=294701
  #+end_src
 
 * 作业实现
