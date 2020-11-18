@@ -64,7 +64,9 @@ https://github.com/JAVA-000/JAVA-000/issues/132
 *** （必做）研究一下 JDBC 接口和数据库连接池，掌握它们的设计和用法：
 
     1）使用 JDBC 原生接口，实现数据库的增删改查操作。
+    
     2）使用事务，PrepareStatement 方式，批处理方式，改进上述操作。
+    
     3）配置 Hikari 连接池，改进上述操作。提交代码到 Github。
 
     jdbc 相关内容，手动调用了insert,select,update,delete 相关的操作，批量操作和事物相关的只是进行了简单的测试，没有深入研究.
