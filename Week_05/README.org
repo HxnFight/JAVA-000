@@ -42,13 +42,29 @@ https://github.com/JAVA-000/JAVA-000/issues/132
 作业参考示例地址，由秦老师和助教共建，每周同步更新： https://github.com/JavaCourse00/JavaCourseCodes
  #+end_src
 
+* 学习记录
+    平时做业务较多，没有深入了解过这些框架相关的内容，在作业的压力下，动手查自己，自己折腾了一遍
+    虽然，还有很多地方不尽人意，但是收获颇丰，随后会再继续完善这块的内容.
+    最近线上业务较多，等消停的时候。
 * 作业实现
 ** 必做题目
-
 ***（必做）写代码实现 Spring Bean 的装配，方式越多越好（XML、Annotation 都可以）, 提交到 Github。
-
+    *作业样例*: [[file:.//beancnf/src/main/java/cn/valjean/fxlearn/service/AnnotationBean.java][注解实现]]
+    *作业样例*: [[file:.//beancnf/src/main/java/cn/valjean/fxlearn/service/XmlBeanFactory.java][xml实现]]
 ***（必做）给前面课程提供的 Student/Klass/School 实现自动配置和 Starter。
+    *作业样例*: [[file:.//starter/src/main/java/cn/valjean/starter/server/MyAutoStarter.java][简单实现了一个Starter]]
+    调用样例 [[file:.//beancnf/src/test/java/cn/valjean/fxlearn/FxLearnApplicationTest.java][start 的测试用例]]
+
 ***（必做）研究一下 JDBC 接口和数据库连接池，掌握它们的设计和用法：
+
     1）使用 JDBC 原生接口，实现数据库的增删改查操作。
     2）使用事务，PrepareStatement 方式，批处理方式，改进上述操作。
     3）配置 Hikari 连接池，改进上述操作。提交代码到 Github。
+
+    jdbc 相关内容，手动调用了insert,select,update,delete 相关的操作，批量操作和事物相关的只是进行了简单的测试，没有深入研究.
+    *作业样例*: [[file:.//beancnf/src/main/java/cn/valjean/fxlearn/db/DbOperation.java][jdbc 的一些原生操作]]
+
+    Hikaricp 只是做了简单的配置， 并替换了测试用例中的获取连接方法。
+    log中默认的debug输入，有很多详细的信息。
+
+    *作业样例*: [[file:.//beancnf/src/main/java/cn/valjean/fxlearn/db/HikariCpTest.java][HikariCp 的一些原生操作]]
