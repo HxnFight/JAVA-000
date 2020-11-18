@@ -50,15 +50,18 @@ https://github.com/JAVA-000/JAVA-000/issues/132
 * 作业实现
 ** 必做题目
 
-***（必做）写代码实现 Spring Bean 的装配，方式越多越好（XML、Annotation 都可以）, 提交到 Github。
+
+*** （必做）写代码实现 Spring Bean 的装配，方式越多越好（XML、Annotation 都可以）, 提交到 Github。
     *作业样例*: [[file:.//beancnf/src/main/java/cn/valjean/fxlearn/service/AnnotationBean.java][注解实现]]
     *作业样例*: [[file:.//beancnf/src/main/java/cn/valjean/fxlearn/service/XmlBeanFactory.java][xml实现]]
     
-***（必做）给前面课程提供的 Student/Klass/School 实现自动配置和 Starter。
+    
+*** （必做）给前面课程提供的 Student/Klass/School 实现自动配置和 Starter。
     *作业样例*: [[file:.//starter/src/main/java/cn/valjean/starter/server/MyAutoStarter.java][简单实现了一个Starter]]
     调用样例 [[file:.//beancnf/src/test/java/cn/valjean/fxlearn/FxLearnApplicationTest.java][start 的测试用例]]
     
-***（必做）研究一下 JDBC 接口和数据库连接池，掌握它们的设计和用法：
+    
+*** （必做）研究一下 JDBC 接口和数据库连接池，掌握它们的设计和用法：
 
     1）使用 JDBC 原生接口，实现数据库的增删改查操作。
     2）使用事务，PrepareStatement 方式，批处理方式，改进上述操作。
