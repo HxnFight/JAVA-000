@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean name="school" class="cn.valjean.fxlearn.domain.School">
+        <property name="class1" ref="klass"/>
+        <property name="student100" ref="student_1"/>
+    </bean>
+
+    <bean name="klass" class="cn.valjean.fxlearn.domain.Klass">
+        <property name="students">
+            <list>
+                <ref bean="student_1"/>
+                <ref bean="student_2"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean name="student_1" class="cn.valjean.fxlearn.domain.Student">
+        <property name="id" value="1"/>
+        <property name="name" value="valjean"/>
+    </bean>
+
+    <bean name="student_2" class="cn.valjean.fxlearn.domain.Student">
+        <property name="id" value="2"/>
+        <property name="name" value=""/>
+    </bean>
+
+
+</beans>
