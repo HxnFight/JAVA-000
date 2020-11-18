@@ -53,12 +53,13 @@ https://github.com/JAVA-000/JAVA-000/issues/132
 *** （必做）写代码实现 Spring Bean 的装配，方式越多越好（XML、Annotation 都可以）, 提交到 Github。
 
     *作业样例*: [[file:.//beancnf/src/main/java/cn/valjean/fxlearn/service/AnnotationBean.java][注解实现]]
+    
     *作业样例*: [[file:.//beancnf/src/main/java/cn/valjean/fxlearn/service/XmlBeanFactory.java][xml实现]]
-    
-    
+        
 *** （必做）给前面课程提供的 Student/Klass/School 实现自动配置和 Starter。
 
     *作业样例*: [[file:.//starter/src/main/java/cn/valjean/starter/server/MyAutoStarter.java][简单实现了一个Starter]]
+    
     调用样例 [[file:.//beancnf/src/test/java/cn/valjean/fxlearn/FxLearnApplicationTest.java][start 的测试用例]]
     
     
