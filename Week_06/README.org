@@ -1,1 +1,113 @@
-学习笔记
+#+TITLE: 学习笔记
+#+OPTIONS: toc:2
+#+OPTIONS: toc:t
+#+STARTUP: overview
+#+COLUMNS: %25ITEM %TAGS %TODO %3PRIORITYd
+#+OPTIONS: ^:nil
+#+OPTIONS: email:t
+#+HTML_MATHJAX: align: left indent: 5em tagside: left font: Neo-Euler
+
+
+* 作业题目
+ #+begin_src
+ Week06 作业题目（周四）：
+
+ 1.（选做）尝试使用 Lambda/Stream/Guava 优化之前作业的代码。
+
+ 2.（选做）尝试使用 Lambda/Stream/Guava 优化工作中编码的代码。
+
+ 3.（选做）根据课上提供的材料，系统性学习一遍设计模式，并在工作学习中思考如何用设计模式解决问题。
+
+ 4.（选做）根据课上提供的材料，深入了解 Google 和 Alibaba 编码规范，并根据这些规范，检查自己写代码是否符合规范，有什么可以改进的。
+
+ Week06 作业题目（周六）：
+
+ 1.（选做）基于课程中的设计原则和最佳实践，分析是否可以将自己负责的业务系统进行数据库设计或是数据库服务器方面的优化
+
+ 2.（必做）基于电商交易场景（用户、商品、订单），设计一套简单的表结构，提交 DDL 的 SQL 文件到 Github（后面 2 周的作业依然要是用到这个表结构）。
+
+ 3.（选做）尽可能多的从“常见关系数据库”中列的清单，安装运行，并使用上一题的 SQL 测试简单的增删改查。
+
+ 4.（选做）基于上一题，尝试对各个数据库测试 100 万订单数据的增删改查性能。
+
+ 5.（选做）尝试对 MySQL 不同引擎下测试 100 万订单数据的增删改查性能。
+
+ 6.（选做）模拟 1000 万订单数据，测试不同方式下导入导出（数据备份还原）MySQL 的速度，包括 jdbc 程序处理和命令行处理。思考和实践，如何提升处理效率。
+
+ 7.（选做）对 MySQL 配置不同的数据库连接池（DBCP、C3P0、Druid、Hikari），测试增删改查 100 万次，对比性能，生成报告。
+
+ 以上作业，要求 1 道必做题目提交到 Github 上面，Week06 作业提交地址：
+ https://github.com/JAVA-000/JAVA-000/issues/134
+
+ 作业参考示例地址，由秦老师和助教共建，每周同步更新： https://github.com/JavaCourse00/JavaCourseCodes
+
+ Github 使用教程： https://u.geekbang.org/lesson/51?article=294701
+
+ #+end_src
+
+* 学习记录
+    先完成必做的，后面抽空看看选做的
+* 作业实现
+** 必做题目
+***（必做）基于电商交易场景（用户、商品、订单），设计一套简单的表结构，提交DDL的SQL文件到 Github
+    目前做的是游戏的虚拟物品和电商的场景相差较多，根据自己平时的网购经验，进行了表设计。
+
+    *作业样例*: [[file:./shop.sql][DDL 文件]]
+
+ #+begin_src sql
+
+create table if not exists t_user
+(
+    id          bigint auto_increment comment '表id',
+    user_id     bigint        not null comment '用户id',
+    user_type   int           null comment '用户类型',
+    nick_name   varchar(100)  not null comment '用户昵称',
+    phone       varchar(20)   not null,
+    gender      int default 3 null comment '1:男，2:女，3:未设置',
+    status      int default 1 not null comment '用户状态【1:有效,2:无效】',
+    create_time bigint        not null comment '创建时间（毫秒值）',
+    update_time bigint        null comment '更新时间（毫秒值）',
+    constraint t_user_pk primary key (id),
+    unique index t_user_uid (user_id)
+) engine = InnoDB
+  auto_increment = 1
+  default charset = utf8 comment '用户信息表';
+
+create table if not exists t_order
+(
+    id             bigint auto_increment comment '表id',
+    trans_id       varchar(100)  not null comment '订单id',
+    order_type     int           not null comment '订单类型',
+    amount         double(11, 2) not null comment '订单金额',
+    sale_type      int default 1 not null comment '促销类型 【1:无促销，2:大促,3: and so on ]',
+    goods_id       varchar(200)  not null comment '商品ids',
+    purchase_phone varchar(20)   not null comment '购买人联系方式',
+    purchase_addr  varchar(200)  not null comment '购买人地址',
+    status         int default 1 not null comment '订单状态【1:有效,2:无效,3: 发货】',
+    create_time    bigint        not null comment '创建时间（毫秒值）',
+    update_time    bigint        null comment '更新时间（毫秒值）',
+    constraint trans_pk primary key (id),
+    unique index trans_id (trans_id)
+) engine = InnoDB
+  auto_increment = 1
+  default charset = utf8 comment '订单表';
+
+
+create table if not exists t_goods
+(
+    id           bigint auto_increment comment '表id',
+    goods_id     varchar(100)     not null comment '商品id',
+    goods_desc   varchar(100)     not null comment '商品描述',
+    goods_source varchar(100)     not null comment '商品来源',
+    goods_stock  bigint default 0 not null comment '商品库存量',
+    goods_type   int              not null comment '商品类型',
+    price        double(11, 2)    not null comment '商品单价金额',
+    status       int    default 1 not null comment '订单状态【1:有效,2:下架】',
+    create_time  bigint           not null comment '创建时间（毫秒值）',
+    update_time  bigint           null comment '更新时间（毫秒值）',
+    constraint goods_pk primary key (id),
+    unique index goods_id (goods_id)
+) engine = InnoDB
+  auto_increment = 1
+  default charset = utf8 comment '商品表';
+ #+end_src
