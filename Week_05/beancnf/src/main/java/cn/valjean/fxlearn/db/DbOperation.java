@@ -1,5 +1,7 @@
 package cn.valjean.fxlearn.db;
 
+import sun.lwawt.macosx.CSystemTray;
+
 import java.sql.*;
 import java.util.Arrays;
 
@@ -170,9 +172,67 @@ public class DbOperation {
     public static void main(String[] args) throws Exception {
 
 //        prepareStatementT();
-        addBatch();
-        singleSQL();
+//        addBatch();
+//        singleSQL();
+        mockData();
 
+    }
+
+
+    public static void mockData() throws Exception {
+
+        long start = System.currentTimeMillis();
+
+        conn = DbOperation.getConnection();
+        conn.setAutoCommit(false);
+
+        String sql = "insert into t_order (trans_id, order_type, amount, sale_type, goods_id, purchase_phone, purchase_addr, create_time, update_time) values (?,?,?,?,?,?,?,?,?);";
+
+        PreparedStatement statement = conn.prepareStatement(sql);
+
+        String str;
+//        for (int i = 1; i < 1000000; i++) {
+        for (int i = 1; i < 10; i++) {
+            str = String.valueOf(i);
+            statement.setString(1, str);
+//            i = i*100;
+            statement.setInt(2, i + 1);
+            statement.setDouble(3, i);
+            statement.setInt(4, i);
+            statement.setString(5, str);
+            statement.setString(6, str);
+            statement.setString(7, str);
+            statement.setLong(8, System.currentTimeMillis());
+            statement.setLong(9, System.currentTimeMillis());
+            statement.addBatch();
+            if (i % 1000 == 0) {
+                int[] ints = statement.executeBatch();
+                conn.commit();
+                double cnt = Arrays.stream(ints).asDoubleStream().sum();
+                System.out.println("prepareStatementT cnt = " + cnt);
+            }
+        }
+
+        int[] ints = statement.executeBatch();
+        conn.commit();
+
+
+        double cnt = Arrays.stream(ints).asDoubleStream().sum();
+        System.out.println("prepareStatementT cnt = " + cnt);
+//        String result;
+////        ResultSet resultSet = statement.executeQuery("select * from test");
+//        sql = "select * from test where  id > " + start;
+//        ResultSet resultSet = statement.executeQuery(sql);
+
+//        while (resultSet.next()) {
+//            result = resultSet.getString("id");
+//            System.out.println("result = " + result);
+//        }
+//        resultSet.close();
+        statement.close();
+//        conn.commit();
+        long time = System.currentTimeMillis() - start;
+        System.out.println("customers time  = " + time);
     }
 
 

@@ -1,1 +1,98 @@
-学习笔记
+#+TITLE: 学习笔记
+#+OPTIONS: toc:2
+#+OPTIONS: toc:t
+#+STARTUP: overview
+#+COLUMNS: %25ITEM %TAGS %TODO %3PRIORITYd
+#+OPTIONS: ^:nil
+#+OPTIONS: email:t
+#+HTML_MATHJAX: align: left indent: 5em tagside: left font: Neo-Euler
+* 作业题目
+ #+begin_src
+
+学习笔记Week07 作业题目（周四）：
+
+    1.（选做）用今天课上学习的知识，分析自己系统的 SQL 和表结构
+    2.（必做）按自己设计的表结构，插入 100 万订单模拟数据，测试不同方式的插入效率
+    3.（选做）按自己设计的表结构，插入 1000 万订单模拟数据，测试不同方式的插入效
+    4.（选做）使用不同的索引或组合，测试不同方式查询效率
+    5.（选做）调整测试数据，使得数据尽量均匀，模拟 1 年时间内的交易，计算一年的销售报表：销售总额，订单数，客单价，每月销售量，前十的商品等等（可以自己设计更多指标）
+    6.（选做）尝试自己做一个 ID 生成器（可以模拟 Seq 或 Snowflake）
+    7.（选做）尝试实现或改造一个非精确分页的程序
+
+    Week07 作业题目（周六）：
+    1.（选做）配置一遍异步复制，半同步复制、组复制
+    2.（必做）读写分离 - 动态切换数据源版本 1.0
+    3.（必做）读写分离 - 数据库框架版本 2.0
+    4.（选做）读写分离 - 数据库中间件版本 3.0
+    5.（选做）配置 MHA，模拟 master 宕机
+    6.（选做）配置 MGR，模拟 master 宕机
+    7.（选做）配置 Orchestrator，模拟 master 宕机，演练 UI 调整拓扑结构
+    以上作业，要求 3 道必做题目提交到 Github 上面，Week07 作业提交地址：
+    https://github.com/JAVA-000/JAVA-000/issues/138
+ #+end_src
+
+* 学习记录
+
+ #+begin_src sql
+   truncate t_order;
+   show procedure status where Name like "%mock_data%";
+   drop procedure mock_data;
+   call mock_data(1000000);
+ #+end_src
+
+* 作业实现
+** 必做题目
+
+    1.（必做）按自己设计的表结构，插入 100 万订单模拟数据，测试不同方式的插入效率
+    存储过程方式实现：
+    利用事物批量提交耗时: 18.95 sec
+    非事物提交耗时 :  1 h 35 m 1 s 907 ms
+
+ #+begin_src sql
+create
+    definer = root@`%` procedure mock_data(IN cnt int)
+begin
+
+    declare var int default 1;
+    set var = 1;
+    #开启事物
+    #     start transaction ;
+    while var < cnt
+        do
+            insert into t_order (trans_id,
+                                 order_type,
+                                 amount,
+                                 sale_type,
+                                 goods_id,
+                                 purchase_phone,
+                                 purchase_addr,
+                                 create_time,
+                                 update_time)
+            values (var,
+                    var + 1,
+                    var + 2,
+                    var + 3,
+                    var + 4,
+                    var + 5,
+                    var + 6,
+                    unix_timestamp(),
+                    unix_timestamp());
+
+            set var = var + 1;
+
+        end while;
+    #     commit;
+end;
+ #+end_src
+
+    代码直连
+    
+    2.（必做）读写分离 - 动态切换数据源版本 1.0
+        3、改进一下1.1：基于操作 AbstractRoutingDataSource 和自定义注解 readOnly 之
+        类的，简化自动切换数据源
+        4、改进二下1.2：支持配置多个从库；
+        5、改进三下1.3：支持多个从库的负载均衡。
+
+
+    3.（必做）读写分离 - 数据库框架版本 2.0
+    使用 ShardingSphere-jdbc 5.0.0-alpha 实现读写分离配置。
