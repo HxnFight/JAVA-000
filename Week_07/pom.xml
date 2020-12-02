@@ -104,4 +104,22 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>manual</id>
+            <properties>
+                <env>manual</env>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+        <profile>
+            <id>ss</id>
+            <properties>
+                <env>ss</env>
+            </properties>
+        </profile>
+    </profiles>
+
 </project>
