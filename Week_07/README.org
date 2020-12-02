@@ -109,18 +109,27 @@ end;
     代码中，使用多库来模拟主从同步,将不同的表中的某个字段设置特殊值
 
     *作业样例*:
+
     [[file:./src/main/java/cn/valjean/multipledb/config/DynamicDbSource.java][AbstractRoutingDataSource 实现]]
+
     [[file:./src/main/java/cn/valjean/multipledb/config/DataSourceConfig.java][读取自定义数据源]]
+
     [[file:./src/main/java/cn/valjean/multipledb/config/DbAop.java][自定义的切面]]
+
     [[file:./src/test/java/cn/valjean/multipledb/MultipleDbApplicationTests.java][测试用例]]
 
-***** 读写分离 - 数据库框架版本 2.0
+**** 读写分离 - 数据库框架版本 2.0
 
     使用 ShardingSphere-jdbc 5.0.0-alpha 实现读写分离配置未成功.
+
     使用 sharding-jdbc-spring-boot-starter: 4.1.1 分别单独实现了读写分离和数据分片
+
     但是读写分离和数据分片一起的代码未调试成功。（放在一起的情况下，数据分片不起作用）
+
     db同样是用多库多表来模拟
 
     *作业样例*:
+
     [[file:./src/main/resources/config/application-ss.properties][properties 配置]]
+
     [[file:./src/test/java/cn/valjean/multipledb/MultipleDbApplicationTests.java][测试用例]]
