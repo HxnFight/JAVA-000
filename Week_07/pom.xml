@@ -41,18 +41,24 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.2.0</version>
         </dependency>
+
         <!--        <dependency>-->
         <!--            <groupId>org.apache.shardingsphere</groupId>-->
         <!--            <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>-->
         <!--            <version>5.0.0-alpha</version>-->
         <!--        </dependency>-->
-
         <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus-generator</artifactId>
-            <version>3.4.1</version>
-            <!--            <scope>compile</scope>-->
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+            <version>4.1.1</version>
         </dependency>
+
+        <!--        <dependency>-->
+        <!--            <groupId>com.baomidou</groupId>-->
+        <!--            <artifactId>mybatis-plus-generator</artifactId>-->
+        <!--            <version>3.4.1</version>-->
+        <!--            &lt;!&ndash;            <scope>compile</scope>&ndash;&gt;-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>org.apache.velocity</groupId>

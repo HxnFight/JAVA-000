@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.Random;
 
 @Slf4j
 @RunWith(SpringRunner.class)
@@ -28,5 +29,46 @@ class MultipleDbApplicationTests {
         log.info(" torder --> {}", JSON.toJSONString(byId));
 
     }
+
+    @Test
+    void testSS() {
+        TOrder tOrder = new TOrder();
+
+        long createTime = System.currentTimeMillis();
+        Random random = new Random(createTime);
+        tOrder.setId(100L);
+        String transId = random.nextInt(10) + "";
+        tOrder.setTransId(transId);
+        tOrder.setOrderType(1);
+        tOrder.setAmount(1.0);
+        tOrder.setSaleType(1);
+        tOrder.setGoodsId("sfsfs");
+        tOrder.setPurchasePhone("sfs");
+        tOrder.setPurchaseAddr("sfs");
+        tOrder.setStatus(1);
+        tOrder.setCreateTime(createTime);
+        tOrder.setUpdateTime(createTime);
+
+        boolean save = tOrderService.save(tOrder);
+        System.out.println("save = " + save);
+
+//        TOrder torderById = tOrderService.getById(100);
+//        System.out.println("torderById = " + torderById);
+
+
+    }
+
+
+    @Test
+    void querySS() {
+
+        TOrder torderById = tOrderService.getById(1);
+        System.out.println("torderById first = " + torderById);
+
+        torderById = tOrderService.getById(1);
+        System.out.println("torderById second = " + torderById);
+
+    }
+
 
 }

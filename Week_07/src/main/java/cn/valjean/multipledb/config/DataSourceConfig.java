@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Slf4j
-@Configuration
+//@Configuration
 public class DataSourceConfig {
 
     /**

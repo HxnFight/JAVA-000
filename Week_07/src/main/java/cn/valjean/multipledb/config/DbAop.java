@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 
 @Slf4j
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class DbAop implements Ordered {
     @Pointcut("@annotation(cn.valjean.multipledb.config.CurDb)")
     public void dataSourcePointCut() {
