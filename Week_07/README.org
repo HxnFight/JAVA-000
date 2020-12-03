@@ -90,7 +90,10 @@ begin
 end;
  #+end_src
 
-    - 利用前面作业的PreparedStatement,本机测试效果，插入很慢。 只做了简单的尝试.
+    - 利用前面作业的PreparedStatement,本机测试效果，插入很慢。
+      加入rewriteBatchedStatements=true 走真正的批量插入， 耗时27024 毫秒
+      只做了简单的尝试.
+
 
      *作业样例*: [[file:../Week_05/beancnf/src/main/java/cn/valjean/fxlearn/db/DbOperation.java][PreparedStatement实现]]
 

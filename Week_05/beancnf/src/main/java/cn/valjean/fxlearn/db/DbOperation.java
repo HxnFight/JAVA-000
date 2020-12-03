@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class DbOperation {
 
-    public static final String url = "jdbc:mysql://192.168.1.110:3306/valjean?useUnicode=true&characterEncoding=UTF-8";
+    public static final String url = "jdbc:mysql://192.168.1.110:3306/valjean?useUnicode=true&characterEncoding=UTF-8&rewriteBatchedStatements=true";
     public static final String username = "apper";//数据库的用户名
     public static final String password = "superme@2019";//数据库的密码:这个是自己安装数据库的时候设置的，每个人不同。
     //    http://tw.gitbook.net/jdbc/jdbc-transactions.html
@@ -186,13 +186,13 @@ public class DbOperation {
         conn = DbOperation.getConnection();
         conn.setAutoCommit(false);
 
-        String sql = "insert into t_order (trans_id, order_type, amount, sale_type, goods_id, purchase_phone, purchase_addr, create_time, update_time) values (?,?,?,?,?,?,?,?,?);";
+        String sql = "insert into t_order (trans_id, order_type, amount, sale_type, goods_id, purchase_phone, purchase_addr, create_time, update_time) values (?,?,?,?,?,?,?,?,?)";
 
         PreparedStatement statement = conn.prepareStatement(sql);
 
         String str;
-//        for (int i = 1; i < 1000000; i++) {
-        for (int i = 1; i < 10; i++) {
+        for (int i = 1; i < 1000000; i++) {
+//        for (int i = 1; i < 10; i++) {
             str = String.valueOf(i);
             statement.setString(1, str);
 //            i = i*100;
@@ -205,12 +205,12 @@ public class DbOperation {
             statement.setLong(8, System.currentTimeMillis());
             statement.setLong(9, System.currentTimeMillis());
             statement.addBatch();
-            if (i % 1000 == 0) {
-                int[] ints = statement.executeBatch();
-                conn.commit();
-                double cnt = Arrays.stream(ints).asDoubleStream().sum();
-                System.out.println("prepareStatementT cnt = " + cnt);
-            }
+//            if (i % 1000 == 0) {
+//                int[] ints = statement.executeBatch();
+//                conn.commit();
+//                double cnt = Arrays.stream(ints).asDoubleStream().sum();
+//                System.out.println("prepareStatementT cnt = " + cnt);
+//            }
         }
 
         int[] ints = statement.executeBatch();
