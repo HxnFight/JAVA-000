@@ -53,12 +53,12 @@
             <version>4.1.1</version>
         </dependency>
 
-        <!--        <dependency>-->
-        <!--            <groupId>com.baomidou</groupId>-->
-        <!--            <artifactId>mybatis-plus-generator</artifactId>-->
-        <!--            <version>3.4.1</version>-->
-        <!--            &lt;!&ndash;            <scope>compile</scope>&ndash;&gt;-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+            <version>3.4.1</version>
+            <!--            <scope>compile</scope>-->
+        </dependency>
 
         <dependency>
             <groupId>org.apache.velocity</groupId>
