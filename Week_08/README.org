@@ -57,7 +57,8 @@ spring.shardingsphere.rules.sharding.sharding-algorithms.t-order-hash-mod.props.
 #+end_src
 
     *完整配置*: [[file:./code/src/main/resources/config/application-step-two.properties][properties文件]]
-    *测试用例*: [[file:./code/src/test/java/cn/valjean/week08/Week08ApplicationTests.java][测试用例]]
+    
+    *测试用例*: [[file:./code/src/test/java/cn/valjean/week08/Week08ApplicationTests.java][增、删、改、查]]
 
 
 **** 基于 hmily TCC 或 ShardingSphere 的 Atomikos XA 实现一个简单的分布式事务应用 demo（二选一），提交到 Github。
