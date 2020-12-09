@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 /**
  * <p>
@@ -23,6 +24,12 @@ public class TOrderController {
     @Resource
     private TOrderService tOrderService;
 
+    public static void main(String[] args) {
+        int i = "9".hashCode();
+        System.out.println("i = " + i % 8);
+
+    }
+
     @GetMapping("/api")
     public String test() {
         TOrder tOrder = new TOrder();
@@ -37,7 +44,7 @@ public class TOrderController {
         tOrder.setPurchaseAddr("sfs");
         tOrder.setStatus(1);
         tOrder.setCreateTime(System.currentTimeMillis());
-        tOrder.setUpdateTime(System.currentTimeMillis());
+        tOrder.setUpdateTime(new Date());
 
         boolean save = tOrderService.save(tOrder);
         System.out.println("save = " + save);
@@ -46,7 +53,6 @@ public class TOrderController {
         System.out.println("torderById = " + torderById);
         return "OK";
     }
-
 
 }
 

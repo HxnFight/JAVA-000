@@ -59,7 +59,8 @@
         <dependency>
             <groupId>org.apache.shardingsphere</groupId>
             <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
-            <version>5.0.0-alpha</version>
+            <version>5.0.0-RC1-SNAPSHOT</version>
+            <!--            <version>5.0.0-alpha</version>-->
         </dependency>
         <!--        <dependency>-->
         <!--            <groupId>org.apache.shardingsphere</groupId>-->
@@ -108,15 +109,33 @@
 
 
     <profiles>
+
         <profile>
             <id>step-one</id>
             <properties>
                 <env>step-one</env>
             </properties>
+        </profile>
+
+
+        <profile>
+            <id>step-two</id>
+            <properties>
+                <env>step-two</env>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>step-three</id>
+            <properties>
+                <env>step-three</env>
+            </properties>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
         </profile>
+
+
     </profiles>
 
 

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -75,7 +76,7 @@ public class TOrder implements Serializable {
     /**
      * 更新时间（毫秒值）
      */
-    private Long updateTime;
+    private Date updateTime;
 
 
 }

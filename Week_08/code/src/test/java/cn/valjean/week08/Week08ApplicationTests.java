@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.Random;
 
 @Slf4j
@@ -51,7 +52,7 @@ class Week08ApplicationTests {
         tOrder.setPurchaseAddr("sfs");
         tOrder.setStatus(1);
         tOrder.setCreateTime(createTime);
-        tOrder.setUpdateTime(createTime);
+        tOrder.setUpdateTime(new Date());
 
         boolean save = tOrderService.save(tOrder);
         System.out.println("save = " + save);
@@ -63,6 +64,13 @@ class Week08ApplicationTests {
         System.out.println("torderById first = " + torderById);
         torderById = tOrderService.getById(1);
         System.out.println("torderById second = " + torderById);
+
+    }
+
+    @Test
+    public void tt() {
+        int i = "6".hashCode();
+        System.out.println("i = " + i % 8);
 
     }
 
