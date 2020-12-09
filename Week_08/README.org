@@ -28,7 +28,25 @@ Week08 作业题目（周六）：
 https://github.com/JAVA-000/JAVA-000/issues/141
  #+end_src
 
+
+* 学习记录
+** 遇到的问题
+    ss 5.x . spring boot 2.xx 启动报空指针。
+    需要配置common相关配置
 https://github.com/apache/shardingsphere/issues/8306
-https://github.com/bitkylin/JAVA-000/blob/main/Week_08/train08/sharding/src/main/resources/application.properties
+    ss yu源码编译命令
 
 mvn clean package install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -Drat.skip=true -Dcheckstyle.skip=true
+
+
+    https://github.com/bitkylin/JAVA-000/blob/main/Week_08/train08/sharding/src/main/resources/application .properties
+
+* 作业实现
+** 必做题目
+设计对前面的订单表数据进行水平分库分表，拆分 2 个库，每个库 16 张表。并在新结构在演示常见的增删改查操作。代码、sql 和配置文件，上传到 Github。
+
+使用 shardingsphere-jdbc 对库、表按trans_id实现， 因我自己业务中的订单号，非纯数字
+采用哈希取模策略实现
+
+
+基于 hmily TCC 或 ShardingSphere 的 Atomikos XA 实现一个简单的分布式事务应用 demo（二选一），提交到 Github。

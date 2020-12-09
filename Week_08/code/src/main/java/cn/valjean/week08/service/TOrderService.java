@@ -16,4 +16,6 @@ public interface TOrderService extends IService<TOrder> {
     TOrder findOrderByIdPrimary(long id);
 
     TOrder findOrderByIdSecondary(long id);
+
+    int delOrderByTransId(String id);
 }

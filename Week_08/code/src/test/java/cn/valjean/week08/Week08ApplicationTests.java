@@ -2,6 +2,9 @@ package cn.valjean.week08;
 
 import cn.valjean.week08.entity.TOrder;
 import cn.valjean.week08.service.TOrderService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -25,20 +28,8 @@ class Week08ApplicationTests {
     void contextLoads() {
     }
 
-    @Test
-    void tOrderService() {
-        TOrder byId = tOrderService.findOrderByIdPrimary(1);
-//        log.info(" torder --> {}", JSON.toJSONString(byId));
-
-        byId = tOrderService.findOrderByIdSecondary(1);
-//        log.info(" torder --> {}", JSON.toJSONString(byId));
-
-    }
-
-    @Test
-    void testSS() {
+    private TOrder createBean() {
         TOrder tOrder = new TOrder();
-
         long createTime = System.currentTimeMillis();
         Random random = new Random(createTime);
         tOrder.setId(100L);
@@ -53,25 +44,42 @@ class Week08ApplicationTests {
         tOrder.setStatus(1);
         tOrder.setCreateTime(createTime);
         tOrder.setUpdateTime(new Date());
+        return tOrder;
+    }
 
-        boolean save = tOrderService.save(tOrder);
-        System.out.println("save = " + save);
+
+    @Test
+    void saveOrder() {
+        TOrder bean = createBean();
+        boolean save = tOrderService.save(bean);
     }
 
     @Test
-    void querySS() {
-        TOrder torderById = tOrderService.getById(1);
-        System.out.println("torderById first = " + torderById);
-        torderById = tOrderService.getById(1);
-        System.out.println("torderById second = " + torderById);
-
+    void queryOrder() {
+        QueryWrapper<TOrder> wrapper = new QueryWrapper<>();
+        wrapper.eq("trans_id", "10000");
+        TOrder torderById = tOrderService.getOne(wrapper);
+        System.out.println("torderById = " + torderById);
     }
 
     @Test
-    public void tt() {
-        int i = "6".hashCode();
-        System.out.println("i = " + i % 8);
+    void saveOrderByStock() {
+        TOrder bean = createBean();
+        bean.setTransId("10000");
+        boolean save = tOrderService.save(bean);
+    }
 
+    @Test
+    void delOrder() {
+        tOrderService.delOrderByTransId("10000");
+    }
+
+    @Test
+    void updateOrder() {
+        UpdateWrapper<TOrder> wrapper = new UpdateWrapper<>();
+        wrapper.eq("trans_id", "10000")
+                .set("goods_id", "update_" + System.currentTimeMillis());
+        tOrderService.update(wrapper);
     }
 
 

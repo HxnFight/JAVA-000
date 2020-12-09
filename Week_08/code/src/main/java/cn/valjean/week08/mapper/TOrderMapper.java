@@ -1,7 +1,9 @@
 package cn.valjean.week08.mapper;
 
 import cn.valjean.week08.entity.TOrder;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface TOrderMapper extends BaseMapper<TOrder> {
 
+//    TOrder delete(@Param("wrapper") QueryWrapper<String> wrapper);
 }
