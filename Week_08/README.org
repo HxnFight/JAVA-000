@@ -27,3 +27,8 @@ Week08 作业题目（周六）：
 
 https://github.com/JAVA-000/JAVA-000/issues/141
  #+end_src
+
+https://github.com/apache/shardingsphere/issues/8306
+https://github.com/bitkylin/JAVA-000/blob/main/Week_08/train08/sharding/src/main/resources/application.properties
+
+mvn clean package install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -Drat.skip=true -Dcheckstyle.skip=true

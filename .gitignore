@@ -17,6 +17,7 @@ GCViewer.app
 #*.jar
 *.war
 *.ear
+.mvn
 
 # sql 文件 
 #*.sql
