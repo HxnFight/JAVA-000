@@ -3,7 +3,6 @@
 /**/target/*
 *.iws
 /src/**/test/*
-*.class
 *.iml
 log/
 .idea/
@@ -18,6 +17,7 @@ GCViewer.app
 *.war
 *.ear
 .mvn
+mvnw*
 
 # sql 文件 
 #*.sql
