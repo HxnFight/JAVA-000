@@ -18,7 +18,10 @@
     <modules>
         <module>hmily-dubbo-consumer</module>
         <module>hmily-dubbo-common</module>
-        <module>hmily-dubbo-provider</module>
+        <!--        <module>hmily-dubbo-provider</module>-->
+        <module>hmily-dubbo-provider-order</module>
+        <module>hmily-dubbo-provider-account</module>
+        <module>hmily-dubbo-provider-inventory</module>
     </modules>
 
     <properties>

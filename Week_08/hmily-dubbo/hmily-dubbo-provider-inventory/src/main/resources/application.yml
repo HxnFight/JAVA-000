@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: hmily-dubbo-provider-inventory
+  main:
+    allow-bean-definition-overriding: true
+    web-application-type: none
+server:
+  port: 8090
+
+dubbo:
+  scan:
+    base-packages: cn.valjean.inventory
+  protocol:
+    name: dubbo
+    port: 8091
+  registry:
+    address: zookeeper://localhost:2181
+  metadata-report:
+    address: zookeeper://localhost:2181
+  application:
+    qosEnable: true
+    qosPort: 8092
+    qosAcceptForeignIp: true
+    qos-enable-compatible: true
+    qos-host-compatible: localhost
+    qos-port-compatible: 8093
+    qos-accept-foreign-ip-compatible: true
+    qos-host: localhost
