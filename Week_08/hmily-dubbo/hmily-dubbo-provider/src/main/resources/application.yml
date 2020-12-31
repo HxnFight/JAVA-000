@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: hmily-dubbo-provider
+  main:
+    allow-bean-definition-overriding: true
+    web-application-type: none
+server:
+  port: 8088
+
+dubbo:
+  scan:
+    base-packages: cn.valjean.provider
+  protocol:
+    name: dubbo
+    port: 12345
+  registry:
+    address: zookeeper://localhost:2181
+  metadata-report:
+    address: zookeeper://localhost:2181
+  application:
+    qosEnable: true
+    qosPort: 22222
+    qosAcceptForeignIp: true
+    qos-enable-compatible: true
+    qos-host-compatible: localhost
+    qos-port-compatible: 22222
+    qos-accept-foreign-ip-compatible: true
+    qos-host: localhost
