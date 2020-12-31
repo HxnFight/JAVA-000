@@ -32,7 +32,7 @@ class Week08ApplicationTests {
         long createTime = System.currentTimeMillis();
         Random random = new Random(createTime);
 //        tOrder.setId(100L);
-        String transId = random.nextInt(10) + "";
+        String transId = random.nextInt(10000) + "";
         tOrder.setTransId(transId);
         tOrder.setOrderType(1);
         tOrder.setAmount(1.0);
