@@ -34,7 +34,7 @@ public class TOrderController {
     public String test() {
         TOrder tOrder = new TOrder();
 
-        tOrder.setId(100L);
+//        tOrder.setId(100L);
         tOrder.setTransId("42472893472347");
         tOrder.setOrderType(1);
         tOrder.setAmount(1.0);

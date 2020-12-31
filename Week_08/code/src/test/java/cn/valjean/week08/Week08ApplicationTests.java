@@ -4,7 +4,6 @@ import cn.valjean.week08.entity.TOrder;
 import cn.valjean.week08.service.TOrderService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +31,7 @@ class Week08ApplicationTests {
         TOrder tOrder = new TOrder();
         long createTime = System.currentTimeMillis();
         Random random = new Random(createTime);
-        tOrder.setId(100L);
+//        tOrder.setId(100L);
         String transId = random.nextInt(10) + "";
         tOrder.setTransId(transId);
         tOrder.setOrderType(1);

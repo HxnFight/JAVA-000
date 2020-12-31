@@ -17,70 +17,56 @@
 
 package cn.valjean.week08.config;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.apache.shardingsphere.sharding.api.sharding.standard.PreciseShardingValue;
 import org.apache.shardingsphere.sharding.api.sharding.standard.RangeShardingValue;
 import org.apache.shardingsphere.sharding.api.sharding.standard.StandardShardingAlgorithm;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.Properties;
 
 /**
  * Interval sharding algorithm.
  */
-public final class YMShardingAlgorithm implements StandardShardingAlgorithm<String> {
+public final class YMShardingAlgorithm implements StandardShardingAlgorithm<Comparable<?>> {
+
+
+    @Getter
+    @Setter
+    private Properties props = new Properties();
 
     @Override
     public void init() {
     }
 
+
+    private String parseDateTime(final String value) {
+        return "_" + value.replaceAll("-", "").substring(0, 6);
+    }
+
+    @Override
+    public String getType() {
+        return "ym_sharding";
+    }
+
     /**
      * 精确查找是走这个方法
-     *
-     * @param availableTargetNames
-     * @param shardingValue
-     * @return
      */
-    @Override
-    public String doSharding(final Collection<String> availableTargetNames, final PreciseShardingValue<String> shardingValue) {
 
-        String suffix = parseDateTime(shardingValue.getValue().toString()).format(DateTimeFormatter.ofPattern("yyyyMM"));
+    @Override
+    public String doSharding(Collection<String> collection, PreciseShardingValue<Comparable<?>> shardingValue) {
+
+        String suffix = parseDateTime(shardingValue.getValue().toString());
         String logicTableName = shardingValue.getLogicTableName();
         return logicTableName + suffix;
     }
 
-
     /**
      * 此方法是实现范围查找的
-     *
-     * @param availableTargetNames
-     * @param shardingValue
-     * @return
      */
     @Override
-    public Collection<String> doSharding(final Collection<String> availableTargetNames,
-                                         final RangeShardingValue<String> shardingValue) {
+    public Collection<String> doSharding(Collection<String> collection, RangeShardingValue<Comparable<?>> rangeShardingValue) {
         return null;
-    }
-
-    private LocalDateTime parseDateTime(final String value) {
-        return LocalDateTime.parse(value.substring(0, 6), DateTimeFormatter.ofPattern("yyyyMM"));
-    }
-
-
-    @Override
-    public String getType() {
-        return "CLASS_BASED";
-    }
-
-    @Override
-    public Properties getProps() {
-        return null;
-    }
-
-    @Override
-    public void setProps(Properties properties) {
-
     }
 }
