@@ -33,7 +33,7 @@ class Week08ApplicationTests {
         Random random = new Random(createTime);
 //        tOrder.setId(100L);
         String transId = random.nextInt(10000) + "";
-        tOrder.setTransId(transId);
+        tOrder.setTransId("202101" + transId);
         tOrder.setOrderType(1);
         tOrder.setAmount(1.0);
         tOrder.setSaleType(1);
