@@ -1,0 +1,17 @@
+server:
+  port: 8089
+
+spring:
+  profiles:
+    active: '@env@'
+
+mybatis-plus:
+  configuration:
+    cache-enabled: true
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+      table-underline: true
+  mapper-locations: classpath*:mapper/*.xml
+  typeAliasesPackage: cn.valjean.webflux.entity

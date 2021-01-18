@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.1.110:3306/t1?characterEncoding=utf-8
+    username: apper
+    password: superme@2019
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      maximum-pool-size: 15
+      max-lifetime: 180000
+      idle-timeout: 60000
+      connection-timeout: 20000
+      minimum-idle: 5
